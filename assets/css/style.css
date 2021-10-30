@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Stint+Ultra+Condensed&display=swap');
+
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -36,7 +38,20 @@ nav a {
 
 .footer {
     position: absolute;
-    width: 100%;
-    border: 1px solid green;
+    width: 95%;
     bottom: 0;
+    text-align: right;
+}
+
+#playerStats {
+    font-size: 18px;
+}
+
+#mnstrinfo {
+    font-size: 18px;
+}
+
+#exp {
+    text-align: center;
+    margin: auto;
 }

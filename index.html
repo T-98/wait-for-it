@@ -16,40 +16,39 @@
     <section class="rpgui-content">
         <nav>
             <button class="rpgui-button nav-menu" type="button" id="dungeon-btn">
-                Dungeon
+                <p>Dungeon</p>
             </button>
 
             <button class="rpgui-button nav-menu" type="button" id="inventory-btn">
-                Inventory
+                <p>Inventory</p>
             </button>
 
             <button class="rpgui-button nav-menu" type="button" id="shop-btn">
-                Shop
+                <p>Shop</p>
             </button>
 
             <div class="nav-menu" id="exp">
-                Level: <span id="exp-txt"></span>
+                <p>Level: <span id="exp-txt"></span></p>
             </div>
         </nav>
 
         <section id="game">
             <div id="dgn">
-                <div>Level Name: <span id="lvlname"></span></div>
                 <div>
-                    <p>Player Name: <span id="plyname"></span></p>
-                    <p>Dmg: <span id="dmgval"></span></p>
-                    <p>Att Speed: <span id="attspeed"></span></p>
+                    <span id="lvlname"></span></div>
+                <div id="playerStats">
+                    <p>Damage: <span id="dmgval"></span></p>
+                    <p>Attack Speed: <span id="attspeed"></span></p>
                     <p>DPS: <span id="dps"></span></p>
                 </div>
 
                 <footer class="footer">
-                    <label>HP:</label>
-                    <div class="rpgui-progress red"></div>
-
                     <div id="mnstrinfo">
-                        Monster
-
+                        <p><span id="monstersSlain"></span>/100</p>
+                        <p>Monsters Slain</p>
+                        <p>Monster Name</p>
                     </div>
+                    <div class="rpgui-progress red"></div>
                 </footer>
             </div>
 
