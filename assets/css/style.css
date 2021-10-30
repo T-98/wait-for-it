@@ -14,12 +14,29 @@ nav a {
 
 .nav-menu {
     flex-grow: 1;
-    text-align: center;
-    border-right: 3px solid green;
-    border-top: 3px solid green;
-    border-bottom: 3px solid green;
 }
 
-#dungeon {
-    border-left: 3px solid green;
+.nav-menu:hover {
+    background-color: yellow;
+    cursor: pointer;
+}
+
+#dungeon-btn {
+    border-left: 3px solid black;
+}
+
+#dgn {
+    background-image: url("/assets/images/bgm.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 50px 50px 50px 10px;
+    min-height: 500px;
+    width: 100%;
+}
+
+.footer {
+    position: absolute;
+    width: 100%;
+    border: 1px solid green;
+    bottom: 0;
 }
