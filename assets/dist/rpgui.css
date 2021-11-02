@@ -5,6 +5,7 @@ If not supported you can add backup via:
 inside your html file.
 */
 @import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+@import url('https://fonts.googleapis.com/css2?family=Spectral:wght@600&display=swap');
 /**
 * Customized scrollbars
 */
@@ -58,31 +59,40 @@ inside your html file.
   overflow: hidden;
   outline: none;
   /* background */
-  background: url("img/button.png") no-repeat no-repeat;
+  /*background: url("img/button.png") no-repeat no-repeat;
   background-clip: padding-box;
   background-origin: padding-box;
   background-position: center;
-  background-size: 100% 100%;
+  background-size: 100% 100%;*/
+  background-color: #250707;
+  /* border */
+  border-style: outset;
+  border-color: #bc4343;
+  border-width: 10px;
   /* font size */
-  font-size: 1.0em;
+  font-size: 20px;
   /* default size and display */
   max-width: 100%;
   min-width: 140px;
-  height: 60px;
+  height: 4em;;
   display: inline-block;
   /* padding */
-  padding-left: 35px;
-  padding-right: 35px; }
+  padding-left: 5px;
+  padding-right: 5px; 
+  margin-left: 10px;
+  margin-top: 10px;
+}
 
 /* button hover */
 .rpgui-button.hover,
 .rpgui-button:hover {
-  background-image: url("img/button-hover.png"); }
-
+  color: white;
+}
 /* button clicked */
 .rpgui-button.down,
 .rpgui-button:active {
-  background-image: url("img/button-down.png"); }
+  background-color: black;
+}
 
 /* golden button stuff */
 .rpgui-button.golden p {
@@ -210,7 +220,8 @@ inside your html file.
   top: 0px;
   position: fixed;
   overflow: hidden;
-  font-size: 0.8em; }
+  font-size: 0.8em; 
+}
 
 /* general rules to apply on anything inside the content */
 .rpgui-content * {
@@ -233,9 +244,10 @@ inside your html file.
   image-rendering: -webkit-crisp-edges;
   image-rendering: -moz-crisp-edges;
   image-rendering: -o-crisp-edges;
-  image-rendering: pixelated;
+  image-rendering: pixelated; 
   /* default font */
-  font-family: 'Press Start 2P', cursive; }
+  font-family: 'Spectral'; 
+}
 
 /**
 * customized divs (containers) and framed objects (background and frame image).
@@ -245,7 +257,8 @@ inside your html file.
   /* position style and default z */
   position: fixed;
   z-index: 10;
-  overflow: show; }
+  overflow: show; 
+}
 
 /* game div with background image*/
 .rpgui-container.framed {
@@ -333,13 +346,10 @@ inside your html file.
 */
 /* default cursor important */
 /* this rule is for when you specifically request this cursor class */
-.rpgui-cursor-default {
-  cursor: url("img/cursor/default.png"), auto !important; }
+
 
 /* default cursor, not important, for all elements without any other rule. */
-.rpgui-content,
-label {
-  cursor: url("img/cursor/default.png"), auto; }
+
 
 /* pointer / hand cursor important */
 /* this rule is for when you specifically request this cursor class */
@@ -684,16 +694,17 @@ ul.rpgui-list-imp {
 /* default p */
 .rpgui-content p {
   /* color and border */
-  color: white;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  color: #f3f17c;
+  font-family: "Spectral";
+  
   font-size: 1.0em;
   line-height: 22px; }
 
 /* default span */
 .rpgui-content span {
   /* color and border */
-  color: white;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  color: #f3f17c;
+  font-family: "Spectral";
   font-size: 1.0em;
   line-height: 22px; }
 
@@ -743,7 +754,7 @@ ul.rpgui-list-imp {
 .rpgui-progress-left-edge {
   position: absolute;
   height: 42px;
-  width: 40px;
+  width: 6px;
   left: 0px;
   background-image: url("img/progress-bar-left.png");
   background-size: 100% 100%; }
@@ -752,7 +763,7 @@ ul.rpgui-list-imp {
 .rpgui-progress-right-edge {
   position: absolute;
   height: 42px;
-  width: 40px;
+  width: 6px;
   right: 0px;
   background-image: url("img/progress-bar-right.png");
   background-size: 100% 100%; }
@@ -761,8 +772,8 @@ ul.rpgui-list-imp {
 .rpgui-progress-track {
   position: absolute;
   height: 42px;
-  left: 40px;
-  right: 40px;
+  left: 6px;
+  right: 6px;
   background-image: url("img/progress-bar-track.png");
   background-repeat: repeat-x;
   background-size: 36px 100%; }

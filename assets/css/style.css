@@ -1,12 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Stint+Ultra+Condensed&display=swap');
-
 body {
     font-family: Arial, Helvetica, sans-serif;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
+    background-image: url("/assets/images/background.png");
+    background-size: cover;
 }
 
 nav a {
@@ -14,18 +9,22 @@ nav a {
     color: crimson;
 }
 
-.nav-menu {
-    flex-grow: 1;
-}
-
 .nav-menu:hover {
-    background-color: yellow;
     cursor: pointer;
 }
 
-#dungeon-btn {
-    border-left: 3px solid black;
+/* this is for if we end up using cards for the background of the stats text */
+.card {
+    background-color: #250707;
+    padding: 10px;
+    border-radius: 5px;
+    width: 15em;
 }
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
 
 #dgn {
     background-image: url("/assets/images/bgm.gif");
@@ -44,11 +43,22 @@ nav a {
 }
 
 #playerStats {
+    display: inline-block;
     font-size: 18px;
+    background-color: #250707;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
 }
 
 #mnstrinfo {
+    display: inline-block;
     font-size: 18px;
+    background-color: #250707;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
 }
 
 #exp {

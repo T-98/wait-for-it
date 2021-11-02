@@ -14,32 +14,30 @@
 
 <body>
     <section class="rpgui-content">
-        <nav>
+        <nav id="nav-menu">
             <button class="rpgui-button nav-menu" type="button" id="dungeon-btn">
-                <p>Dungeon</p>
+                <p id="button-text">Dungeon</p>
             </button>
 
             <button class="rpgui-button nav-menu" type="button" id="inventory-btn">
-                <p>Inventory</p>
+                <p id="button-text">Inventory</p>
             </button>
 
             <button class="rpgui-button nav-menu" type="button" id="shop-btn">
-                <p>Shop</p>
+                <p id="button-text">Shop</p>
             </button>
-
-            <div class="nav-menu" id="exp">
-                <p>Level: <span id="exp-txt"></span></p>
-            </div>
         </nav>
 
         <section id="game">
             <div id="dgn">
                 <div>
-                    <span id="lvlname"></span></div>
+                    <span id="lvlname"></span>
+                </div>
                 <div id="playerStats">
-                    <p>Damage: <span id="dmgval"></span></p>
-                    <p>Attack Speed: <span id="attspeed"></span></p>
-                    <p>DPS: <span id="dps"></span></p>
+                    <p>Level: <span id="exp-txt"></span><br>
+                    Damage: <span id="dmgval"></span><br>
+                    Attack Speed: <span id="attspeed"></span><br>
+                    DPS: <span id="dps"></span></p>
                 </div>
 
                 <footer class="footer">
