@@ -1,6 +1,6 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-image: url("/assets/images/background.png");
+    background-image: url("/assets/images/background2.png");
     background-size: cover;
 }
 
@@ -21,18 +21,26 @@ nav a {
     width: 15em;
 }
 
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-
 #dgn {
-    background-image: url("/assets/images/bgm.gif");
-    background-repeat: no-repeat;
-    background-position: center;
     padding: 50px 50px 50px 10px;
     min-height: 500px;
     width: 100%;
+}
+
+#mobImage {
+    position: absolute;
+    left: 40%;
+    bottom: 25%;
+    width: 20%;
+    z-index: 2;
+}
+
+#platformImage {
+    position: absolute;
+    left: 35%;
+    bottom: 10%;
+    width: 30%;
+    z-index: 1;
 }
 
 .footer {
