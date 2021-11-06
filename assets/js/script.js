@@ -6,6 +6,12 @@ $("#dungeon").click(function() {
 
 })
 
+// why doesn't javascript have this already...
+// randrange
+function rand_range(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
 // important functions for the core systems of the game
 
 // calculate monster hp
@@ -15,7 +21,7 @@ function monster_hp(difficulty_slope, monsters_defeated) {
 
 // amount of gold dropped on monster death
 function gold_drop(difficulty_slope) {
-    return Math.ciel(difficulty_slope * (Math.floor(Math.random() * (6)) + 1));
+    return rand_range(Math.ciel(difficulty_slope*4) * difficulty_slope, Math.ciel(difficulty_slope*8) * difficulty_slope);
 }
 
 // gold cost to upgrade weapon
@@ -32,7 +38,7 @@ function damage_calc(difficulty_slope, weapon_damage) {
     return Math.ciel(difficulty_slope * weapon_damage + 1);
 }
 
-// Weapon damage on generation
-function weapon_gen_damage(x, enemies_defeated) {
+// Weapon damage on weapon generation
+function weapon_gen_damage(, enemies_defeated) {
     return x * enemies_defeated;
 }
