@@ -4,27 +4,39 @@ body {
     background-size: cover;
 }
 
+nav {
+    display: flex;
+}
+
+nav button {
+    flex-grow: 1;
+}
+
 nav a {
     text-decoration: none;
     color: crimson;
 }
 
-.nav-menu:hover {
-    cursor: pointer;
-}
 
 /* this is for if we end up using cards for the background of the stats text */
+
 .card {
     background-color: #250707;
     padding: 10px;
     border-radius: 5px;
     width: 15em;
+    flex-grow: 1;
+    text-align: center;
 }
 
 #dgn {
     padding: 50px 50px 50px 10px;
     min-height: 500px;
     width: 100%;
+}
+
+#inv {
+    display: none;
 }
 
 #mobImage {
@@ -72,4 +84,19 @@ nav a {
 #exp {
     text-align: center;
     margin: auto;
+}
+
+.cards {
+    display: flex;
+}
+
+.inv-btn {
+    background-color: rgb(188, 67, 67);
+}
+
+.name {
+    border: 3px;
+    border-style: solid;
+    border-color: rgb(243, 241, 124);
+    padding: 1em;
 }
