@@ -2,7 +2,7 @@
 //AUTHORS: Divyansh Khare, James Doherty
 
 //span utility example
-document.getElementById("exp-txt").innerHTML = 20;
+document.getElementById("exp-txt").innerHTML = 1;
 var game = document.getElementById("game");
 
 //screen transitions on button click

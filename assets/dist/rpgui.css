@@ -355,7 +355,7 @@ inside your html file.
 /* this rule is for when you specifically request this cursor class */
 .rpgui-cursor-point,
 .rpgui-cursor-point * {
-  cursor: url("img/cursor/point.png") 10 0, auto !important; }
+  cursor: pointer; }
 
 /* pointer / hand cursor, not important, for all elements that have pointer by-default */
 .rpgui-content a,
@@ -366,7 +366,7 @@ inside your html file.
 .rpgui-list-imp,
 .rpgui-dropdown-imp,
 .rpgui-content input[type=checkbox].rpgui-checkbox + label {
-  cursor: url("img/cursor/point.png") 10 0, auto; }
+  cursor: pointer; }
 
 /* for input / text selection important */
 /* this rule is for when you specifically request this cursor class */

@@ -5,7 +5,9 @@ body {
 }
 
 nav {
+    margin-right: 13px;
     display: flex;
+    justify-content: space-between;
 }
 
 nav button {
@@ -14,7 +16,7 @@ nav button {
 
 nav a {
     text-decoration: none;
-    color: crimson;
+    color: rgb(188, 67, 67);
 }
 
 
@@ -22,21 +24,28 @@ nav a {
 
 .card {
     background-color: #250707;
+    margin: 10px;
     padding: 10px;
     border-radius: 5px;
-    width: 15em;
-    flex-grow: 1;
     text-align: center;
+}
+
+.card img {
+    width: 100px;
 }
 
 #dgn {
     padding: 50px 50px 50px 10px;
+    margin-right: 13px;
     min-height: 500px;
     width: 100%;
 }
 
 #inv {
-    display: none;
+    padding: 50px 50px 50px 10px;
+    margin-right: 13px;
+    min-height: 500px;
+    width: 100%;
 }
 
 #mobImage {
@@ -57,9 +66,10 @@ nav a {
 
 .footer {
     position: absolute;
-    width: 95%;
+    width: 98%;
     bottom: 0;
     text-align: right;
+    margin-right: 13px;
 }
 
 #playerStats {
@@ -88,6 +98,7 @@ nav a {
 
 .cards {
     display: flex;
+    justify-content: space-evenly;
 }
 
 .inv-btn {
@@ -95,8 +106,13 @@ nav a {
 }
 
 .name {
+    font-size: 14px;
     border: 3px;
     border-style: solid;
     border-color: rgb(243, 241, 124);
     padding: 1em;
+}
+
+#equipText {
+    font-size: 20px;
 }
