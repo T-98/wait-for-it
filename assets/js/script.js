@@ -239,12 +239,12 @@ document.addEventListener("onDeath", function() {
         $("#dps").text(damage_calc(game_save.difficulty_slope, game_save.current_weapon.damage).toString());
         deadlock = false;
     });
-    let monster_gifs = ['/assets/images/monsters/rat.gif', '/assets/images/monsters/imp.gif', '/assets/images/monsters/mouth.gif', '/assets/images/monsters/pikmin.gif', '/assets/images/monsters/smiley.gif', '/assets/images/monsters/triangle.gif'];
+    let monster_gifs = ['assets/images/monsters/rat.gif', 'assets/images/monsters/imp.gif', 'assets/images/monsters/mouth.gif', 'assets/images/monsters/pikmin.gif', 'assets/images/monsters/smiley.gif', 'assets/images/monsters/triangle.gif'];
         
     if ((game_save.monsters_defeated + 1) % 100 === 0) { // triggers the boss battle (hopefully)
         game_save.rem_monster_hp *= 3; // boss battle
         max_monster_hp *= 3
-        $("#mobImage").attr("src", "/assets/images/monsters/gremlin.gif");    
+        $("#mobImage").attr("src", "assets/images/monsters/gremlin.gif");    
     } else {
         $("#mobImage").attr("src", monster_gifs[rand_range(0, 6)]);
     }
