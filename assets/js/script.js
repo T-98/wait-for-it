@@ -72,24 +72,24 @@ function isEmpty(el) {
 //CREDITS: James Doherty
 // randrange
 function rand_range(min, max) {
-    return Math.random() * (max - min) + min;
+    return Math.floor(Math.random() * (max - min) + min);
 }
 
 // important functions for the core systems of the game
 
 // calculate monster hp
 function monster_hp(difficulty_slope, monsters_defeated) {
-    return Math.ciel(difficulty_slope * monsters_defeated + 40);
+    return Math.ceil(difficulty_slope * monsters_defeated) + 40;
 }
 
 // amount of gold dropped on monster death
 function gold_drop(difficulty_slope) {
-    return rand_range(Math.ciel(difficulty_slope * 4) * difficulty_slope, Math.ciel(difficulty_slope * 8) * difficulty_slope);
+    return rand_range(Math.ceil(difficulty_slope * 4) * difficulty_slope, Math.ceil(difficulty_slope * 8) + 1 * difficulty_slope);
 }
 
 // gold cost to upgrade weapon
 function weapon_upgrade_price(scale) {
-    return Math.ciel(scale * 100);
+    return Math.ceil(scale * 100);
 }
 // scale value to upgrade weapon
 function weapon_upgrade_scale(level) {
@@ -98,7 +98,7 @@ function weapon_upgrade_scale(level) {
 
 // Damage calculation function
 function damage_calc(difficulty_slope, weapon_damage) {
-    return Math.ciel(difficulty_slope * weapon_damage + 1);
+    return Math.ceil(difficulty_slope * weapon_damage + 1);
 }
 
 // Weapon damage on weapon generation
@@ -109,12 +109,14 @@ function weapon_gen_damage(x, enemies_defeated) {
 // game object
 // handles all values relevant to game
 class Game {
-    constructor(difficulty_slope = 0.5, inventory = {}, current_weapon = {}, monsters_defeated = 0, gold = 0) {
+    constructor(difficulty_slope = 0.5, inventory = { weapons: [] }, current_weapon = { type:"fists", damage:"1" }, monsters_defeated = 0, gold = 0) {
         this.difficulty_slope = difficulty_slope;
         this.inventory = inventory;
         this.current_weapon = current_weapon;
         this.monsters_defeated = monsters_defeated;
         this.gold = gold;
+        console.log(monster_hp( this.difficulty_slope, this.monsters_defeated ))
+        this.rem_monster_hp = monster_hp(this.difficulty_slope, this.monsters_defeated);
     }
 
     save() {
@@ -123,6 +125,7 @@ class Game {
         localStorage.setItem('current_weapon', this.current_weapon);
         localStorage.setItem('monsters_defeated', this.monsters_defeated);
         localStorage.setItem('gold', this.gold);
+        localStorage.setItem('rem_monster_hp', this.rem_monster_hp);
     }
 
     load() {
@@ -131,5 +134,160 @@ class Game {
         this.current_weapon = localStorage.getItem('current_weapon');
         this.monsters_defeated = localStorage.getItem('monsters_defeated');
         this.gold = localStorage.getItem('gold');
+        this.rem_monster_hp = localStorage.getItem('rem_monster_hp');
     }
 }
+
+// weapon object
+
+let axes = ['Electrode.png', 'Tiger.png'];
+let swords = ['Bat.png', 'Blossom.png', 'Bluechain.png', 'Bluejay.png', 'Cyan.png'];
+let daggers = ['Ice.png', 'Leaf.png', 'Pinksword.png', 'Sapphire.png', 'Winged.png'];
+class Weapon {
+    constructor(type, save) {
+        this.type = type;
+        this.damage = weapon_gen_damage(3, save.enemies_defeated);
+        switch (type) {
+            case 'axe':
+                this.img = 'assets/images/items/items/greatax/' + axes[rand_range(0, 2)];
+                this.weapon_speed = 2000;
+                this.damage *= 2;
+                break;
+            case 'sword':
+                this.img = 'assets/images/items/items/swords/' + swords[rand_range(0, 5)];
+                this.weapon_speed = 1000;
+                break;
+            case 'dagger':
+                this.img = 'assets/images/items/items/swords/' + daggers[rand_range(0, 5)];
+                this.weapon_speed = 500;
+                this.damage /= 2;
+                break;
+            default:
+                console.log("undefined weapon type, try again buckaroo.");
+                
+        }
+        // string pointing to sprite to represent the weapon
+        // this.img
+    }
+}
+
+function weapon_drop_chance(odds) {
+    let die = rand_range(1, odds + 1);
+    let weapon_types = ['sword', 'dagger', 'axe'];
+    if(die === 7) {
+        return new Weapon(weapon_types[rand_range(0,3)], game_save);
+    } else {
+        return null;
+    }
+}
+
+// TODO LIST
+// * implement weapon drops
+// * implement weapon upgrades
+// * implement boss battles
+
+
+let game_save = null;
+// checking against difficulty_slope, if that is null then don't load
+// and create a new save
+
+if (localStorage.getItem("difficulty_slope") === null) {
+    game_save = new Game();
+} else {
+    game_save = new Game();
+    game_save.load();
+}
+console.log(game_save.rem_monster_hp);
+// this is where combat mechanics will be implemented
+let max_monster_hp = monster_hp(game_save.difficulty_slope, game_save.monsters_defeated);
+let wep = game_save.current_weapon;
+let deadlock = false;
+$("#gold").text(game_save.gold.toString());
+$("#monsterHP").text(game_save.rem_monster_hp + "/" + max_monster_hp);
+$("#dmgval").text((game_save.current_weapon.damage).toString());
+$("#dps").text((game_save.current_weapon.damage).toString());
+// event instatiation goes here
+// death event
+const death = new Event("onDeath");
+const hp_change = new Event("hpChange");
+const gold_change = new Event("goldChange");
+const weapon_change = new Event("weaponChange");
+// idgaf if this is bad tbh
+
+document.addEventListener("goldChange", function() {
+    $("#gold").text(game_save.gold.toString());
+});
+
+document.addEventListener("onDeath", function() {
+    game_save.monsters_defeated += 1;
+    $("#monstersSlain").text(game_save.monsters_defeated);
+    let weapon_drop = weapon_drop_chance(50);
+    if (weapon_drop !== null) {
+        game_save.inventory.weapons.push(weapon_drop);
+    }
+    game_save.gold += gold_drop(game_save.difficulty_slope);
+    document.dispatchEvent(gold_change);
+    $("#mobImage").fadeOut(500, function() { 
+        
+        game_save.rem_monster_hp = monster_hp(game_save.difficulty_slope, game_save.monsters_defeated); 
+        max_monster_hp = game_save.rem_monster_hp;
+        
+
+        $(".rpgui-progress-fill").css("width", "100%");
+        $("#mobImage").show();
+        $("#dmgval").text((damage_calc(game_save.difficulty_slope, game_save.current_weapon.damage).toString()));
+        $("#dps").text(damage_calc(game_save.difficulty_slope, game_save.current_weapon.damage).toString());
+        deadlock = false;
+    });
+    let monster_gifs = ['/assets/images/monsters/rat.gif', '/assets/images/monsters/imp.gif', '/assets/images/monsters/mouth.gif', '/assets/images/monsters/pikmin.gif', '/assets/images/monsters/smiley.gif', '/assets/images/monsters/triangle.gif'];
+        
+    if ((game_save.monsters_defeated + 1) % 100 === 0) { // triggers the boss battle (hopefully)
+        game_save.rem_monster_hp *= 3; // boss battle
+        max_monster_hp *= 3
+        $("#mobImage").attr("src", "/assets/images/monsters/gremlin.gif");    
+    } else {
+        $("#mobImage").attr("src", monster_gifs[rand_range(0, 6)]);
+    }
+
+    if (game_save.monsters_defeated % 100 === 0) { // on boss death (hopefully)
+        game_save.difficulty_slope += 0.5;
+    }
+});
+
+document.addEventListener("hpChange", function() {
+    $(".rpgui-progress-fill").css("width", Math.floor(game_save.rem_monster_hp / max_monster_hp * 100).toString() + "%");
+    $("#monsterHP").text(game_save.rem_monster_hp + "/" + max_monster_hp);
+});
+
+/*
+document.addEventListener("weaponChange", function() {
+    
+});
+*/ 
+
+
+$("#mobImage").click(function() {       
+    game_save.rem_monster_hp -= damage_calc(game_save.difficulty_slope, wep.damage);
+    document.dispatchEvent(hp_change);
+    check_if_dead();
+});
+
+// deal damage every x amount of seconds
+setInterval(function() {
+    game_save.rem_monster_hp -= damage_calc(game_save.difficulty_slope, wep.damage);
+    document.dispatchEvent(hp_change);
+    check_if_dead();
+}, 1000); // replace 1000 with variable damage speed
+
+function check_if_dead() {
+    if (game_save.rem_monster_hp <= 0 && deadlock === false) {
+        document.dispatchEvent(death);
+        deadlock = true;
+    }
+}
+
+
+
+
+
+
