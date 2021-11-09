@@ -28,43 +28,49 @@ $("#inventory-btn").click(function() {
 //shambolic spam method but it works for now
 
 //top-row
-if (isEmpty($("#name-card-1-1"))) {
-    $("#card-1-1").css('display', 'none')
-}
-if (isEmpty($("#name-card-1-2"))) {
-    $("#card-1-2").css('display', 'none')
-}
-if (isEmpty($("#name-card-1-3"))) {
-    $("#card-1-3").css('display', 'none')
-}
-if (isEmpty($("#name-card-1-4"))) {
-    $("#card-1-4").css('display', 'none')
-}
+var item1 = $("#card-1-1");
+var item2 = $("#card-1-2");
+var item3 = $("#card-1-3");
+var item4 = $("#card-1-4");
+var item5 = $("#card-2-1");
+var item6 = $("#card-2-2");
+var item7 = $("#card-2-3");
+var item8 = $("#card-2-4");
 
-//bottom-row
-if (isEmpty($("#name-card-2-1"))) {
-    $("#card-2-1").css('display', 'none')
-}
-if (isEmpty($("#name-card-2-2"))) {
-    $("#card-2-2").css('display', 'none')
-}
-if (isEmpty($("#name-card-2-3"))) {
-    $("#card-2-3").css('display', 'none')
-}
-if (isEmpty($("#name-card-2-4"))) {
-    $("#card-2-4").css('display', 'none')
-}
+var arrCards = [item1, item2, item3, item4, item5, item6, item7, item8];
+
+// if (isEmpty($("#name-card-1-1"))) {
+//     item1.css('display', 'none')
+// }
+// if (isEmpty($("#name-card-1-2"))) {
+//     item2.css('display', 'none')
+// }
+// if (isEmpty($("#name-card-1-3"))) {
+//     item3.css('display', 'none')
+// }
+// if (isEmpty($("#name-card-1-4"))) {
+//     item4.css('display', 'none')
+// }
+
+// //bottom-row
+
+// if (isEmpty($("#name-card-2-1"))) {
+//     item5.css('display', 'none')
+// }
+// if (isEmpty($("#name-card-2-2"))) {
+//     item6.css('display', 'none')
+// }
+// if (isEmpty($("#name-card-2-3"))) {
+//     item7.css('display', 'none')
+// }
+// if (isEmpty($("#name-card-2-4"))) {
+//     item8.css('display', 'none')
+// }
 
 
 function isEmpty(el) {
     return !$.trim(el.html())
 }
-
-
-
-
-
-
 
 //-------------------------------------------------------------------------------------------------------
 //Base Game Dynamics
@@ -109,13 +115,13 @@ function weapon_gen_damage(x, enemies_defeated) {
 // game object
 // handles all values relevant to game
 class Game {
-    constructor(difficulty_slope = 0.5, inventory = { weapons: [] }, current_weapon = { type:"fists", damage:"1" }, monsters_defeated = 0, gold = 0) {
+    constructor(difficulty_slope = 0.5, inventory = { weapons: [] }, current_weapon = { type: "fists", damage: "1" }, monsters_defeated = 0, gold = 0) {
         this.difficulty_slope = difficulty_slope;
         this.inventory = inventory;
         this.current_weapon = current_weapon;
         this.monsters_defeated = monsters_defeated;
         this.gold = gold;
-        console.log(monster_hp( this.difficulty_slope, this.monsters_defeated ))
+        console.log(monster_hp(this.difficulty_slope, this.monsters_defeated))
         this.rem_monster_hp = monster_hp(this.difficulty_slope, this.monsters_defeated);
     }
 
@@ -140,31 +146,34 @@ class Game {
 
 // weapon object
 
-let axes = ['Electrode.png', 'Tiger.png'];
-let swords = ['Bat.png', 'Blossom.png', 'Bluechain.png', 'Bluejay.png', 'Cyan.png'];
-let daggers = ['Ice.png', 'Leaf.png', 'Pinksword.png', 'Sapphire.png', 'Winged.png'];
+var axes = ['Electrode.png', 'Tiger.png'];
+var swords = ['Bat.png', 'Blossom.png', 'Bluechain.png', 'Bluejay.png', 'Cyan.png'];
+var daggers = ['Ice.png', 'Leaf.png', 'Pinksword.png', 'Sapphire.png', 'Winged.png'];
 class Weapon {
     constructor(type, save) {
         this.type = type;
         this.damage = weapon_gen_damage(3, save.enemies_defeated);
         switch (type) {
             case 'axe':
-                this.img = 'assets/images/items/items/greatax/' + axes[rand_range(0, 2)];
+                this.name = axes[rand_range(0, 2)];
+                this.img = 'assets/images/items/items/greatax/' + this.name;
                 this.weapon_speed = 2000;
                 this.damage *= 2;
                 break;
             case 'sword':
-                this.img = 'assets/images/items/items/swords/' + swords[rand_range(0, 5)];
+                this.name = swords[rand_range(0, 5)];
+                this.img = 'assets/images/items/items/swords/' + this.name;
                 this.weapon_speed = 1000;
                 break;
             case 'dagger':
-                this.img = 'assets/images/items/items/swords/' + daggers[rand_range(0, 5)];
+                this.name = daggers[rand_range(0, 5)];
+                this.img = 'assets/images/items/items/swords/' + this.name;
                 this.weapon_speed = 500;
                 this.damage /= 2;
                 break;
             default:
                 console.log("undefined weapon type, try again buckaroo.");
-                
+
         }
         // string pointing to sprite to represent the weapon
         // this.img
@@ -174,20 +183,22 @@ class Weapon {
 function weapon_drop_chance(odds) {
     let die = rand_range(1, odds + 1);
     let weapon_types = ['sword', 'dagger', 'axe'];
-    if(die === 7) {
-        return new Weapon(weapon_types[rand_range(0,3)], game_save);
+    if (die === 7) {
+        return new Weapon(weapon_types[rand_range(0, 3)], game_save);
     } else {
-        return null;
+        return new Weapon(weapon_types[rand_range(0, 3)], game_save);
     }
 }
 
 // TODO LIST
 // * implement weapon drops
+
+
 // * implement weapon upgrades
 // * implement boss battles
 
 
-let game_save = null;
+var game_save = null;
 // checking against difficulty_slope, if that is null then don't load
 // and create a new save
 
@@ -222,16 +233,55 @@ document.addEventListener("onDeath", function() {
     game_save.monsters_defeated += 1;
     $("#monstersSlain").text(game_save.monsters_defeated);
     let weapon_drop = weapon_drop_chance(50);
-    if (weapon_drop !== null) {
-        game_save.inventory.weapons.push(weapon_drop);
+    if (weapon_drop != null) {
+
+
+        /*let len = game_save.inventory.weapons.length;
+        let index = 0;
+        let weapon = null;
+
+        if (game_save.inventory.weapons[0] != null)
+            while (index < len - 1) {
+                if (weapon === null) {
+                    weapon = game_save.inventory.weapons[index + 1];
+                    game_save.inventory.weapons[index + 1] = game_save.inventory.weapons[index];
+                } else {
+                    if (game_save.inventory.weapons[index + 1] === null) {
+                        game_save.inventory.weapons[index + 1] = weapon;
+                        break;
+                    }
+                    let temp = game_save.inventory.weapons[index + 1];
+                    game_save.inventory.weapons[index + 1] = weapon[index];
+                    game_save.inventory.weapons[index] = weapon;
+                    weapon = temp;
+                }
+                ++index;
+
+            }
+        game_save.inventory.weapons[0] = weapon_drop;*/
+
+        //remove the last element if the array length is 8
+
+        //push to the beginning
+        if (game_save) {
+            game_save.inventory.weapons.unshift(weapon_drop);
+
+            if (game_save.inventory.weapons.length > 8) {
+                // remove last item in array
+                game_save.inventory.weapons.pop();
+
+                // add into the first
+            }
+        }
+        document.dispatchEvent(weapon_change);
     }
     game_save.gold += gold_drop(game_save.difficulty_slope);
     document.dispatchEvent(gold_change);
-    $("#mobImage").fadeOut(500, function() { 
-        
-        game_save.rem_monster_hp = monster_hp(game_save.difficulty_slope, game_save.monsters_defeated); 
+    $("#mobImage").fadeOut(500, function() {
+
+        game_save.rem_monster_hp = monster_hp(game_save.difficulty_slope, game_save.monsters_defeated);
         max_monster_hp = game_save.rem_monster_hp;
-        
+
 
         $(".rpgui-progress-fill").css("width", "100%");
         $("#mobImage").show();
@@ -240,11 +290,11 @@ document.addEventListener("onDeath", function() {
         deadlock = false;
     });
     let monster_gifs = ['assets/images/monsters/rat.gif', 'assets/images/monsters/imp.gif', 'assets/images/monsters/mouth.gif', 'assets/images/monsters/pikmin.gif', 'assets/images/monsters/smiley.gif', 'assets/images/monsters/triangle.gif'];
-        
+
     if ((game_save.monsters_defeated + 1) % 100 === 0) { // triggers the boss battle (hopefully)
         game_save.rem_monster_hp *= 3; // boss battle
         max_monster_hp *= 3
-        $("#mobImage").attr("src", "assets/images/monsters/gremlin.gif");    
+        $("#mobImage").attr("src", "assets/images/monsters/gremlin.gif");
     } else {
         $("#mobImage").attr("src", monster_gifs[rand_range(0, 6)]);
     }
@@ -259,14 +309,28 @@ document.addEventListener("hpChange", function() {
     $("#monsterHP").text(game_save.rem_monster_hp + "/" + max_monster_hp);
 });
 
-/*
+
 document.addEventListener("weaponChange", function() {
-    
+    let index = 0;
+    while (index < game_save.inventory.weapons.length) {
+        if (game_save.inventory.weapons[index] === null) break;
+        let name = game_save.inventory.weapons[index].name;
+        arrCards[index].css('display', 'block');
+        // arrCards[index].children(".inv-btn").children(".name").innerHTML = name.substring(0, name.length - 4);
+
+
+        arrCards[index].children(".inv-btn").children(".name").innerHTML = 'dddd';
+        arrCards[index].children(".inv-btn").children("img").attr("src", game_save.inventory.weapons[index].img);
+        arrCards[index].children(".inv-btn").children(".dmg").children('span').innerHTML = game_save.inventory.weapons[index].damage;
+        arrCards[index].children(".inv-btn").children(".att").children('span').innerHTML = game_save.inventory.weapons[index].weapon_speed;
+        ++index;
+    }
+
 });
-*/ 
 
 
-$("#mobImage").click(function() {       
+
+$("#mobImage").click(function() {
     game_save.rem_monster_hp -= damage_calc(game_save.difficulty_slope, wep.damage);
     document.dispatchEvent(hp_change);
     check_if_dead();
@@ -285,9 +349,3 @@ function check_if_dead() {
         deadlock = true;
     }
 }
-
-
-
-
-
-

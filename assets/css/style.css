@@ -20,6 +20,13 @@ nav a {
 }
 
 
+/* it means all card class items */
+
+.cards>.card {
+    display: none;
+}
+
+
 /* this is for if we end up using cards for the background of the stats text */
 
 .card {
