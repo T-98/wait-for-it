@@ -319,10 +319,10 @@ document.addEventListener("weaponChange", function() {
         // arrCards[index].children(".inv-btn").children(".name").innerHTML = name.substring(0, name.length - 4);
 
 
-        arrCards[index].children(".inv-btn").children(".name").innerHTML = 'dddd';
+        arrCards[index].children(".inv-btn").children(".name").html(name.substring(0, name.length - 4));
         arrCards[index].children(".inv-btn").children("img").attr("src", game_save.inventory.weapons[index].img);
-        arrCards[index].children(".inv-btn").children(".dmg").children('span').innerHTML = game_save.inventory.weapons[index].damage;
-        arrCards[index].children(".inv-btn").children(".att").children('span').innerHTML = game_save.inventory.weapons[index].weapon_speed;
+        arrCards[index].children(".inv-btn").children(".dmg").children('span').html(game_save.inventory.weapons[index].damage);
+        arrCards[index].children(".inv-btn").children(".att").children('span').html(game_save.inventory.weapons[index].weapon_speed);
         ++index;
     }
 
