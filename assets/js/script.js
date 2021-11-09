@@ -17,16 +17,6 @@ $("#inventory-btn").click(function() {
     $("#inv").css('display', 'block');
 });
 
-
-
-//trying to make items disappear if they don't exist
-
-//something is wrong with the way i'm looping through the elements and their children so
-// i'll need some time to figure this one out
-//but there's certainly an elegant solution, it's in my head but i've gotta find a way to implement it
-
-//shambolic spam method but it works for now
-
 //top-row
 var item1 = $("#card-1-1");
 var item2 = $("#card-1-2");
@@ -38,35 +28,6 @@ var item7 = $("#card-2-3");
 var item8 = $("#card-2-4");
 
 var arrCards = [item1, item2, item3, item4, item5, item6, item7, item8];
-
-// if (isEmpty($("#name-card-1-1"))) {
-//     item1.css('display', 'none')
-// }
-// if (isEmpty($("#name-card-1-2"))) {
-//     item2.css('display', 'none')
-// }
-// if (isEmpty($("#name-card-1-3"))) {
-//     item3.css('display', 'none')
-// }
-// if (isEmpty($("#name-card-1-4"))) {
-//     item4.css('display', 'none')
-// }
-
-// //bottom-row
-
-// if (isEmpty($("#name-card-2-1"))) {
-//     item5.css('display', 'none')
-// }
-// if (isEmpty($("#name-card-2-2"))) {
-//     item6.css('display', 'none')
-// }
-// if (isEmpty($("#name-card-2-3"))) {
-//     item7.css('display', 'none')
-// }
-// if (isEmpty($("#name-card-2-4"))) {
-//     item8.css('display', 'none')
-// }
-
 
 function isEmpty(el) {
     return !$.trim(el.html())
@@ -190,14 +151,6 @@ function weapon_drop_chance(odds) {
     }
 }
 
-// TODO LIST
-// * implement weapon drops
-
-
-// * implement weapon upgrades
-// * implement boss battles
-
-
 var game_save = null;
 // checking against difficulty_slope, if that is null then don't load
 // and create a new save
@@ -234,34 +187,7 @@ document.addEventListener("onDeath", function() {
     $("#monstersSlain").text(game_save.monsters_defeated);
     let weapon_drop = weapon_drop_chance(50);
     if (weapon_drop != null) {
-
-
-        /*let len = game_save.inventory.weapons.length;
-        let index = 0;
-        let weapon = null;
-
-        if (game_save.inventory.weapons[0] != null)
-            while (index < len - 1) {
-                if (weapon === null) {
-                    weapon = game_save.inventory.weapons[index + 1];
-                    game_save.inventory.weapons[index + 1] = game_save.inventory.weapons[index];
-                } else {
-                    if (game_save.inventory.weapons[index + 1] === null) {
-                        game_save.inventory.weapons[index + 1] = weapon;
-                        break;
-                    }
-                    let temp = game_save.inventory.weapons[index + 1];
-                    game_save.inventory.weapons[index + 1] = weapon[index];
-                    game_save.inventory.weapons[index] = weapon;
-                    weapon = temp;
-                }
-                ++index;
-
-            }
-        game_save.inventory.weapons[0] = weapon_drop;*/
-
         //remove the last element if the array length is 8
-
         //push to the beginning
         if (game_save) {
             game_save.inventory.weapons.unshift(weapon_drop);
@@ -309,16 +235,13 @@ document.addEventListener("hpChange", function() {
     $("#monsterHP").text(game_save.rem_monster_hp + "/" + max_monster_hp);
 });
 
-
+//weapon drops are implemented here
 document.addEventListener("weaponChange", function() {
     let index = 0;
     while (index < game_save.inventory.weapons.length) {
         if (game_save.inventory.weapons[index] === null) break;
         let name = game_save.inventory.weapons[index].name;
         arrCards[index].css('display', 'block');
-        // arrCards[index].children(".inv-btn").children(".name").innerHTML = name.substring(0, name.length - 4);
-
-
         arrCards[index].children(".inv-btn").children(".name").html(name.substring(0, name.length - 4));
         arrCards[index].children(".inv-btn").children("img").attr("src", game_save.inventory.weapons[index].img);
         arrCards[index].children(".inv-btn").children(".dmg").children('span').html(game_save.inventory.weapons[index].damage);
@@ -327,8 +250,6 @@ document.addEventListener("weaponChange", function() {
     }
 
 });
-
-
 
 $("#mobImage").click(function() {
     game_save.rem_monster_hp -= damage_calc(game_save.difficulty_slope, wep.damage);
